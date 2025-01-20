@@ -21,6 +21,9 @@ Servo servo_pinky;
 
 void setup() {
   // set up code
+  Serial.begin(115200); // Start serial communication
+  pinMode(analogPin, INPUT); // Configure the pin as an input
+
   servo_arm.attach(14);
 
   servo_wrist_x.attach(12);
@@ -35,13 +38,35 @@ void setup() {
   
 }
 
+// start position of all servos at zero to be able to track position
+// might change start position later
+void start_position(){
+  servo_arm.write(0);
+  servo_wrist_x.write(0);
+  servo_wrist_y.write(0);
+  servo_wrist_z.write(0);
+  servo_index.write(0);
+  servo_middle.write(0);
+  servo_ring.write(0);
+  servo_pinky.write(0);
+  servo_thumb.write(0);
+  
+}
+
 // function for the motion of the arm (0-150)
+// gear ratio of 1:2
 void arm_extend(int degrees){
-  degrees = degrees/2;
-  if (degrees >75){
+  degrees += 5;
+  if (degrees > 75){
     degrees = 75;
   }
+  if (degrees < 0){
+    degrees = 0;
+  }
   servo_arm.write(degrees);
+  delay(500); // half a second for the motion to be completed
+  return degrees;
+  
 }
 
 void wrist_z(int degrees){
@@ -77,43 +102,48 @@ void thumb(int degrees){
 }
 
 void loop() {
-  int action;
-  int degrees;
-  //(1 = arm, 2 = wrist_z, 3 = wrist_x, 4 = wrist_y, 5 = index, 6 = middle, 7 = ring, 8 = pinky, 9 = thumb)
-  std::cout << "Enter an action: ";
-  std::cin >> action;
-  std::cout << "Enter the degrees: ";
-  std::cin >> degrees;
+  int voltage = analogRead(analogPin);
 
-  if (action = 1){
-    arm_extend(degrees);
+  // start arm in same position each time 
+  start_position();
+  int degrees_arm = 0;
+  int degrees_wrist_x = 0;
+  int degrees_wrist_y = 0;
+  int degrees_wrist_z = 0;
+  int degrees_index = 0;
+  int degrees_middle = 0;
+  int degrees_ring = 0;
+  int degrees_pinky = 0;
+  int degrees_thumb = 0;
+  
+
+  while (voltage < .56){
+    degrees_arm = arm_extend(degrees_arm);
   }
-  else if (action = 2){
-    wrist_z(degrees);
+  while (voltage < 1.12 and voltage > .56){
+    wrist_z();
   }
-  else if (action = 3){
-    wrist_x(degrees);
+  while (voltage < 1.68 and voltage > 1.12 ){
+    wrist_x();
   }
-  else if (action = 4){
-    wrist_y(degrees);
+  while (voltage < 2.24 and voltage > 1.68){
+    wrist_y();
   }
-  else if (action = 5){
-    index_finger(degrees);
+  while (voltage < 2.8 and voltage > 2.24){
+    index_finger();
   }
-  else if (action = 6){
-    middle_finger(degrees);
+  while (voltage < 3.36 and voltage > 2.8){
+    middle_finger();
   }
-  else if (action = 7){
-    ring_finger(degrees);
+  while (voltage < 3.92 and voltage > 3.36){
+    ring_finger();
   }
-  else if (action = 8){
-    pinky_finger(degrees);
+  while (voltage < 4.48 and voltage > 3.92){
+    pinky_finger();
   }
-  else if (action = 9){
-    thumb(degrees);
+  while (voltage < 5 and voltage > 4.48){
+    thumb();
   }
-  else {
-    std::cout << "Please input a valid action number" << std::endl;
-  }
+
 
 }
