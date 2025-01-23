@@ -88,40 +88,62 @@ void wrist_twist_right(int degrees){
 }
 
 void wrist_twist_left(int degrees){
-    degrees -= 5;
-    if (degrees < 0){
-      degrees = 0;
-    }
-    servo_wrist_twist(degrees);
-    delay(500); // half a second for the motion to be completed
-    return degrees;
+  degrees -= 5;
+  if (degrees < 0){
+    degrees = 0;
+  }
+  servo_wrist_twist(degrees);
+  delay(500); // half a second for the motion to be completed
+  return degrees;
 }
 
-void wrist_x(int degrees){
+void wrist_x_left(int degrees){
   
 }
 
-void wrist_y(int degrees){
+void wrist_x_right(int degrees){
   
 }
 
-void index_finger(int degrees){
+void wrist_y_up(int degrees){
+  
+}
+void wrist_y_down(int degrees){
   
 }
 
-void middle_finger(int degrees){
+void index_finger_up(int degrees){
+  
+}
+void index_finger_down(int degrees){
   
 }
 
-void ring_finger(int degrees){
+void middle_finger_up(int degrees){
+  
+}
+void middle_finger_down(int degrees){
   
 }
 
-void pinky_finger(int degrees){
+void ring_finger_up(int degrees){
+  
+}
+void ring_finger_down(int degrees){
   
 }
 
-void thumb(int degrees){
+void pinky_finger_up(int degrees){
+  
+}
+void pinky_finger_down(int degrees){
+  
+}
+
+void thumb_up(int degrees){
+  
+}
+void thumb_down(int degrees){
   
 }
 
