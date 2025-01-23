@@ -55,21 +55,33 @@ void start_position(){
 
 // function for the motion of the arm (0-150)
 // gear ratio of 1:2
-void arm_extend(int degrees){
+void arm_extend_up(int degrees){
   degrees += 5;
   if (degrees > 75){
     degrees = 75;
   }
+  servo_arm.write(degrees);
+  delay(500); // half a second for the motion to be completed
+  return degrees;
+}
+
+void arm_extend_up(int degrees){
+  degrees -= 5;
   if (degrees < 0){
     degrees = 0;
   }
   servo_arm.write(degrees);
   delay(500); // half a second for the motion to be completed
   return degrees;
-  
 }
 
-void wrist_z(int degrees){
+// 180 to the right
+// 0 is palm down, 180 is palm up
+void wrist_twist_right(int degrees){
+
+}
+
+void wrist_twist_left(int degrees){
 
 }
 
@@ -117,15 +129,14 @@ void loop() {
   int degrees_thumb = 0;
   
 
-  while (voltage < .56){
-    degrees_arm = arm_extend(degrees_arm);
+  while (voltage < .28){
+    degrees_arm = arm_extend_up(degrees_arm);
   }
-  while (voltage < .56){
-    degrees_arm = arm_extend(degrees_arm);
+  while (voltage < .56 and voltage > .28){
+    degrees_arm = arm_extend_down(degrees_arm);
   }
-  sdvafjlbafdkjvbnaejrkfnvkjerfnvkjnerjkvnkjasdv
   while (voltage < 1.12 and voltage > .56){
-    wrist_z();
+    wrist_twist();
   }
   while (voltage < 1.68 and voltage > 1.12 ){
     wrist_x();
