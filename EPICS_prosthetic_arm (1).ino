@@ -120,6 +120,10 @@ void loop() {
   while (voltage < .56){
     degrees_arm = arm_extend(degrees_arm);
   }
+  while (voltage < .56){
+    degrees_arm = arm_extend(degrees_arm);
+  }
+  sdvafjlbafdkjvbnaejrkfnvkjerfnvkjnerjkvnkjasdv
   while (voltage < 1.12 and voltage > .56){
     wrist_z();
   }
