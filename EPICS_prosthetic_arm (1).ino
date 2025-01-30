@@ -53,6 +53,8 @@ void start_position(){
   
 }
 
+// speed is 5 degrees / half second for all functions
+
 // function for the motion of the arm (0-150)
 // gear ratio of 1:2
 void arm_extend_up(int degrees){
@@ -75,8 +77,10 @@ void arm_extend_up(int degrees){
   return degrees;
 }
 
-// 180 to the right
-// 0 is palm down, 180 is palm up
+/*
+twists wrist to the right by increments of 5 degrees
+0 is palm down, 180 is palm up
+*/
 void wrist_twist_right(int degrees){
    degrees += 5;
     if (degrees > 180){
@@ -87,6 +91,10 @@ void wrist_twist_right(int degrees){
   return degrees;
 }
 
+/*
+twists wrist to the left by increments of 5 degrees
+0 is palm down, 180 is palm up
+*/
 void wrist_twist_left(int degrees){
   degrees -= 5;
   if (degrees < 0){
@@ -97,19 +105,32 @@ void wrist_twist_left(int degrees){
   return degrees;
 }
 
-void wrist_x_left(int degrees){
-  
+/*
+turns wrist to the left or down by increments of 5 degrees
+-60 is wrist all the way to the left or all the way down
+*/
+void wrist_negative(int degrees){
+  degrees -= 5;
+  if (degrees < -60){
+    degrees = 60;
+  }
+  servo_wrist_twist(degrees);
+  delay(500); // half a second for the motion to be completed
+  return degrees;
 }
 
-void wrist_x_right(int degrees){
-  
-}
-
-void wrist_y_up(int degrees){
-  
-}
-void wrist_y_down(int degrees){
-  
+/*
+turns wrist to the right or up by increments of 5 degrees
+60 is wrist all the way to the right or all the way up
+*/
+void wrist_positive(int degrees){
+    degrees += 5;
+    if (degrees > 60){
+      degrees = 60;
+    }
+  servo_wrist_twist(degrees);
+  delay(500); // half a second for the motion to be completed
+  return degrees;
 }
 
 void index_finger_up(int degrees){
@@ -180,18 +201,18 @@ void loop() {
 
   //wrist left and right movement
   while (voltage < 1.4 and voltage > 1.12 ){
-    degrees_wrist_x = wrist_x_right(degrees_wrist_x);
+    degrees_wrist_x = wrist_positive(degrees_wrist_x);
   }
   while (voltage < 1.68 and voltage > 1.4 ){
-    degrees_wrist_x = wrist_x_right(degrees_wrist_x);
+    degrees_wrist_x = wrist_negative(degrees_wrist_x);
   }
 
   //wrist up and down movement
   while (voltage < 1.96 and voltage > 1.68){
-    degrees_wrist_y = wrist_y_up(degrees_wrist_y);
+    degrees_wrist_y = wrist_positive(degrees_wrist_y);
   }
   while (voltage < 2.24 and voltage > 1.96){
-    degrees_wrist_y = wrist_y_up(degrees_wrist_y);
+    degrees_wrist_y = wrist_negative(degrees_wrist_y);
   }
 
   // index finger movement 
