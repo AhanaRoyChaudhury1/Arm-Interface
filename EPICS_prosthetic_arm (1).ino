@@ -67,7 +67,7 @@ void arm_extend_up(int degrees){
   return degrees;
 }
 
-void arm_extend_up(int degrees){
+void arm_extend_down(int degrees){
   degrees -= 5;
   if (degrees < 0){
     degrees = 0;
