@@ -134,38 +134,72 @@ void wrist_positive(int degrees){
 }
 
 void index_finger_up(int degrees){
-  
+   degrees += 5;
+  if (degrees > 90) {  
+    degrees = 90;
+  }
+  servo_index.write(degrees);
+  delay(500);
 }
 void index_finger_down(int degrees){
-  
+   degrees -= 5;
+  if (degrees < 0) {  // Assuming 0 is fully extended
+    degrees = 0;
+  }
+  servo_index.write(degrees);
+  delay(500);
 }
 
 void middle_finger_up(int degrees){
-  
+   degrees += 5;
+  if (degrees > 90) degrees = 90;
+  servo_middle.write(degrees);
+  delay(500);
 }
 void middle_finger_down(int degrees){
-  
+   degrees -= 5;
+  if (degrees < 0) degrees = 0;
+  servo_middle.write(degrees);
+  delay(500);
 }
 
 void ring_finger_up(int degrees){
-  
+   degrees += 5;
+  if (degrees > 90) degrees = 90;
+  servo_ring.write(degrees);
+  delay(500);
 }
 void ring_finger_down(int degrees){
-  
+   degrees -= 5;
+  if (degrees < 0) degrees = 0;
+  servo_ring.write(degrees);
+  delay(500);
 }
 
 void pinky_finger_up(int degrees){
-  
+  degrees += 5;
+  if (degrees > 90) degrees = 90;
+  servo_pinky.write(degrees);
+  delay(500);
 }
 void pinky_finger_down(int degrees){
-  
+  degrees -= 5;
+  if (degrees < 0) degrees = 0;
+  servo_pinky.write(degrees);
+  delay(500);
 }
 
 void thumb_up(int degrees){
-  
+ degrees += 5;
+  if (degrees > 90) degrees = 90;
+  servo_thumb.write(degrees);
+  delay(500);
 }
 void thumb_down(int degrees){
-  
+   degrees -= 5;
+  if (degrees < 0) degrees = 0;
+  servo_thumb.write(degrees);
+  delay(500);
 }
 
 void loop() {
