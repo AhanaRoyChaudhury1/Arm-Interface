@@ -134,7 +134,7 @@ int wrist_positive(int degrees){
   return degrees;
 }
 
-int index_finger_up(int degrees){
+int finger_up(int degrees){
    degrees += 1;
   if (degrees > 90) {  // Assuming max bend is 90 degrees
     degrees = 90;
@@ -143,7 +143,7 @@ int index_finger_up(int degrees){
   delay(20);
   return degrees;
 }
-int index_finger_down(int degrees){
+int finger_down(int degrees){
    degrees -= 1;
   if (degrees < 0) {  // Assuming 0 is fully extended
     degrees = 0;
@@ -153,81 +153,6 @@ int index_finger_down(int degrees){
   return degrees;
 }
 
-int middle_finger_up(int degrees){
-   degrees += 1;
-  if (degrees > 90) {
-    degrees = 90;
-  }
-  servo_middle.write(degrees);
-  delay(20);
-  return degrees;
-}
-int middle_finger_down(int degrees){
-   degrees -= 1;
-  if (degrees < 0) {
-    degrees = 0;
-  }
-  servo_middle.write(degrees);
-  delay(20);
-  return degrees;
-}
-
-int ring_finger_up(int degrees){
-   degrees += 1;
-  if (degrees > 90) {
-    degrees = 90;
-  }
-  servo_ring.write(degrees);
-  delay(20);
-  return degrees;
-}
-int ring_finger_down(int degrees){
-   degrees -= 1;
-  if (degrees < 0) {
-    degrees = 0;
-  }
-  servo_ring.write(degrees);
-  delay(20);
-  return degrees;
-}
-
-int pinky_finger_up(int degrees){
-  degrees += 1;
-  if (degrees > 90) {
-    degrees = 90;
-  }
-  servo_pinky.write(degrees);
-  delay(20);
-   return degrees;
-}
-int pinky_finger_down(int degrees){
-  degrees -= 1;
-  if (degrees < 0) {
-    degrees = 0;
-  }
-  servo_pinky.write(degrees);
-  delay(20);
-  return degrees;
-}
-
-int thumb_up(int degrees){
- degrees += 1;
-  if (degrees > 90) {
-    degrees = 90;
-  }
-  servo_thumb.write(degrees);
-  delay(20);
-  return degrees;
-}
-int thumb_down(int degrees){
-   degrees -= 1;
-  if (degrees < 0) {
-    degrees = 0;
-  }
-  servo_thumb.write(degrees);
-  delay(20);
-  return degrees;
-}
 
 void loop() {
   int voltage = analogRead(analogPin);
