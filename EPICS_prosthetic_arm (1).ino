@@ -53,28 +53,28 @@ void start_position(){
   
 }
 
-// speed is 5 degrees / half second for all functions
+// speed is 1 degree1 / 20 milliseconds for all functions
 
 // function for the motion of the arm (0-150)
 // gear ratio of 1:2
 
 int arm_extend_up(int degrees){
-  degrees += 5;
+  degrees += 1;
   if (degrees > 75){
     degrees = 75;
   }
   servo_arm.write(degrees);
-  delay(500); // half a second for the motion to be completed
+  delay(20);
   return degrees;
 }
 
 int arm_extend_down(int degrees){
-  degrees -= 5;
+  degrees -= 1;
   if (degrees < 0){
     degrees = 0;
   }
   servo_arm.write(degrees);
-  delay(500); // half a second for the motion to be completed
+  delay(20); 
   return degrees;
 }
 
@@ -83,12 +83,12 @@ twists wrist to the right by increments of 5 degrees
 0 is palm down, 180 is palm up
 */
 int wrist_twist_right(int degrees){
-   degrees += 5;
+   degrees += 1;
     if (degrees > 180){
-      degrees = 180;
+      degrees = 100;
     }
   servo_wrist_twist(degrees);
-  delay(500); // half a second for the motion to be completed
+  delay(20); 
   return degrees;
 }
 
@@ -97,12 +97,12 @@ twists wrist to the left by increments of 5 degrees
 0 is palm down, 180 is palm up
 */
 int wrist_twist_left(int degrees){
-  degrees -= 5;
+  degrees -= 1;
   if (degrees < 0){
     degrees = 0;
   }
   servo_wrist_twist(degrees);
-  delay(500); // half a second for the motion to be completed
+  delay(20); // half a second for the motion to be completed
   return degrees;
 }
 
@@ -111,12 +111,12 @@ turns wrist to the left or down by increments of 5 degrees
 -60 is wrist all the way to the left or all the way down
 */
 int wrist_negative(int degrees){
-  degrees -= 5;
+  degrees -= 1;
   if (degrees < -60){
     degrees = 60;
   }
   servo_wrist_twist(degrees);
-  delay(500); // half a second for the motion to be completed
+  delay(20); // half a second for the motion to be completed
   return degrees;
 }
 
@@ -125,91 +125,107 @@ turns wrist to the right or up by increments of 5 degrees
 60 is wrist all the way to the right or all the way up
 */
 int wrist_positive(int degrees){
-    degrees += 5;
+    degrees += 1;
     if (degrees > 60){
       degrees = 60;
     }
   servo_wrist_twist(degrees);
-  delay(500); // half a second for the motion to be completed
+  delay(20); // half a second for the motion to be completed
   return degrees;
 }
 
 int index_finger_up(int degrees){
-   degrees += 5;
+   degrees += 1;
   if (degrees > 90) {  // Assuming max bend is 90 degrees
     degrees = 90;
   }
   servo_index.write(degrees); // update the servo
-  delay(500);
+  delay(20);
   return degrees;
 }
 int index_finger_down(int degrees){
-   degrees -= 5;
+   degrees -= 1;
   if (degrees < 0) {  // Assuming 0 is fully extended
     degrees = 0;
   }
   servo_index.write(degrees);
-  delay(500);
+  delay(20);
   return degrees;
 }
 
 int middle_finger_up(int degrees){
-   degrees += 5;
-  if (degrees > 90) degrees = 90;
+   degrees += 1;
+  if (degrees > 90) {
+    degrees = 90;
+  }
   servo_middle.write(degrees);
-  delay(500);
+  delay(20);
   return degrees;
 }
 int middle_finger_down(int degrees){
-   degrees -= 5;
-  if (degrees < 0) degrees = 0;
+   degrees -= 1;
+  if (degrees < 0) {
+    degrees = 0;
+  }
   servo_middle.write(degrees);
-  delay(500);
+  delay(20);
   return degrees;
 }
 
 int ring_finger_up(int degrees){
-   degrees += 5;
-  if (degrees > 90) degrees = 90;
+   degrees += 1;
+  if (degrees > 90) {
+    degrees = 90;
+  }
   servo_ring.write(degrees);
-  delay(500);
+  delay(20);
   return degrees;
 }
 int ring_finger_down(int degrees){
-   degrees -= 5;
-  if (degrees < 0) degrees = 0;
+   degrees -= 1;
+  if (degrees < 0) {
+    degrees = 0;
+  }
   servo_ring.write(degrees);
-  delay(500);
+  delay(20);
   return degrees;
 }
 
 int pinky_finger_up(int degrees){
-  degrees += 5;
-  if (degrees > 90) degrees = 90;
+  degrees += 1;
+  if (degrees > 90) {
+    degrees = 90;
+  }
   servo_pinky.write(degrees);
-  delay(500);
+  delay(20);
    return degrees;
 }
 int pinky_finger_down(int degrees){
-  degrees -= 5;
-  if (degrees < 0) degrees = 0;
+  degrees -= 1;
+  if (degrees < 0) {
+    degrees = 0;
+  }
   servo_pinky.write(degrees);
-  delay(500);
+  delay(20);
   return degrees;
 }
 
 int thumb_up(int degrees){
- degrees += 5;
-  if (degrees > 90) degrees = 90;
+ degrees += 1;
+  if (degrees > 90) {
+    degrees = 90;
+  }
   servo_thumb.write(degrees);
-  delay(500);
+  delay(20);
   return degrees;
 }
 int thumb_down(int degrees){
-   degrees -= 5;
-  if (degrees < 0) degrees = 0;
+   degrees -= 1;
+  if (degrees < 0) {
+    degrees = 0;
+  }
   servo_thumb.write(degrees);
-  delay(500);
+  delay(20);
   return degrees;
 }
 
