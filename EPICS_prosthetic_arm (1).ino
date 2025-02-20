@@ -41,15 +41,15 @@ void setup() {
 // start position of all servos at zero to be able to track position
 // might change start position later
 void start_position(){
-  servo_arm.write(0);
-  servo_wrist_x.write(0);
-  servo_wrist_y.write(0);
-  servo_wrist_z.write(0);
-  servo_index.write(0);
-  servo_middle.write(0);
-  servo_ring.write(0);
-  servo_pinky.write(0);
-  servo_thumb.write(0);
+  int degrees_arm = 0; // wrist starts fully extended
+  int degrees_wrist_x = 60; //wrist starts in the middle
+  int degrees_wrist_y = 60; //wrist starts in the middle
+  int degrees_wrist_twist = 0; // wrist starts palm down
+  int degrees_index = 0; //finger starts fully extended
+  int degrees_middle = 0; //finger starts fully extended
+  int degrees_ring = 0; //finger starts fully extended
+  int degrees_pinky = 0; //finger starts fully extended
+  int degrees_thumb = 0; //finger starts fully extended
   
 }
 
@@ -159,15 +159,6 @@ void loop() {
 
   // start arm in same position each time 
   start_position();
-  int degrees_arm = 0; // wrist starts fully extended
-  int degrees_wrist_x = 60; //wrist starts in the middle
-  int degrees_wrist_y = 60; //wrist starts in the middle
-  int degrees_wrist_twist = 0; // wrist starts palm down
-  int degrees_index = 0; //finger starts fully extended
-  int degrees_middle = 0; //finger starts fully extended
-  int degrees_ring = 0; //finger starts fully extended
-  int degrees_pinky = 0; //finger starts fully extended
-  int degrees_thumb = 0; //finger starts fully extended
   
   // arm
   while (voltage < .28){
