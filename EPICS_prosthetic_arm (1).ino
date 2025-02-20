@@ -55,13 +55,13 @@ void start_position(){
 
 // speed is 1 degree1 / 20 milliseconds for all functions
 
-// function for the motion of the arm (0-150)
-// gear ratio of 1:2
+// function for the motion of the arm (0-270)
+// gear ratio of 1:1/4
 
 int arm_extend_up(int degrees){
   degrees += 1;
-  if (degrees > 75){
-    degrees = 75;
+  if (degrees > 270){
+    degrees = 270;
   }
   servo_arm.write(degrees);
   delay(20);
@@ -85,7 +85,7 @@ twists wrist to the right by increments of 5 degrees
 int wrist_twist_right(int degrees){
    degrees += 1;
     if (degrees > 180){
-      degrees = 100;
+      degrees = 180;
     }
   servo_wrist_twist(degrees);
   delay(20); 
@@ -108,12 +108,12 @@ int wrist_twist_left(int degrees){
 
 /*
 turns wrist to the left or down by increments of 5 degrees
--60 is wrist all the way to the left or all the way down
+0 is wrist all the way to the left or all the way down
 */
 int wrist_negative(int degrees){
   degrees -= 1;
-  if (degrees < -60){
-    degrees = 60;
+  if (degrees < 0){
+    degrees = 0;
   }
   servo_wrist_twist(degrees);
   delay(20); // half a second for the motion to be completed
@@ -122,12 +122,12 @@ int wrist_negative(int degrees){
 
 /*
 turns wrist to the right or up by increments of 5 degrees
-60 is wrist all the way to the right or all the way up
+120 is wrist all the way to the right or all the way up
 */
 int wrist_positive(int degrees){
     degrees += 1;
-    if (degrees > 60){
-      degrees = 60;
+    if (degrees > 120){
+      degrees = 120;
     }
   servo_wrist_twist(degrees);
   delay(20); // half a second for the motion to be completed
@@ -159,15 +159,15 @@ void loop() {
 
   // start arm in same position each time 
   start_position();
-  int degrees_arm = 0;
-  int degrees_wrist_x = 0;
-  int degrees_wrist_y = 0;
-  int degrees_wrist_twist = 0;
-  int degrees_index = 0;
-  int degrees_middle = 0;
-  int degrees_ring = 0;
-  int degrees_pinky = 0;
-  int degrees_thumb = 0;
+  int degrees_arm = 0; // wrist starts fully extended
+  int degrees_wrist_x = 60; //wrist starts in the middle
+  int degrees_wrist_y = 60; //wrist starts in the middle
+  int degrees_wrist_twist = 0; // wrist starts palm down
+  int degrees_index = 0; //finger starts fully extended
+  int degrees_middle = 0; //finger starts fully extended
+  int degrees_ring = 0; //finger starts fully extended
+  int degrees_pinky = 0; //finger starts fully extended
+  int degrees_thumb = 0; //finger starts fully extended
   
   // arm
   while (voltage < .28){
