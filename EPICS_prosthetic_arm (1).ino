@@ -11,7 +11,7 @@ const int analogPin = 34;
 Servo servo_arm;
 Servo servo_wrist_x;
 Servo servo_wrist_y;
-Servo servo_wrist_z;
+Servo servo_wrist_twist;
 Servo servo_index;
 Servo servo_middle;
 Servo servo_ring;
