@@ -1,5 +1,4 @@
 #include <Servo.h>
-
 // pin to read voltage input 
 const int analogPin = A0;
 
@@ -24,15 +23,6 @@ int degrees_ring = 0; //finger starts fully extended
 int degrees_pinky = 0; //finger starts fully extended
 int degrees_thumb = 0; //finger starts fully extended
 
-int arm_extend_up(int degrees);
-int arm_extend_down(int degrees);
-int wrist_twist_right(int degrees);
-int wrist_twist_left(int degrees);
-int wrist_negative(int degrees, Servo* servo_name);
-int wrist_positive(int degrees, Servo* servo_name);
-int finger_up(int degrees, Servo* servo_name);
-int finger_down(int degrees, Servo* servo_name);
-
 
 void setup() {
   // set up code
@@ -45,16 +35,16 @@ void setup() {
   servo_wrist_y.attach(11);
   servo_wrist_twist.attach(10);
 
-  servo_index.attach(9);
+  servo_index.attach(3);
   servo_middle.attach(8);
-  servo_ring.attach(7);
-  servo_pinky.attach(6);
-  servo_thumb.attach(5);
+  servo_ring.attach(18);
+  servo_pinky.attach(17);
+  servo_thumb.attach(16);
   
 }
 
 
-// speed is 1 degree / 20 milliseconds for all functions
+// speed is 1 degree1 / 20 milliseconds for all functions
 
 // function for the motion of the arm (0-270)
 // gear ratio of 1:1/4
@@ -111,12 +101,12 @@ int wrist_twist_left(int degrees){
 turns wrist to the left or down by increments of 5 degrees
 0 is wrist all the way to the left or all the way down
 */
-int wrist_negative(int degrees, Servo* servo_name){
+int wrist_negative(int degrees, Servo &servo_name){
   degrees -= 1;
   if (degrees < 0){
     degrees = 0;
   }
-  servo_name->write(degrees);
+  servo_name.write(degrees);
   delay(20); // half a second for the motion to be completed
   return degrees;
 }
@@ -125,32 +115,32 @@ int wrist_negative(int degrees, Servo* servo_name){
 turns wrist to the right or up by increments of 5 degrees
 120 is wrist all the way to the right or all the way up
 */
-int wrist_positive(int degrees, Servo* servo_name){
+int wrist_positive(int degrees, Servo &servo_name){
     degrees += 1;
     if (degrees > 120){
       degrees = 120;
     }
-  servo_name->write(degrees);
+  servo_name.write(degrees);
   delay(20); // half a second for the motion to be completed
   return degrees;
 }
 
-int finger_up(int degrees, Servo* servo_name){
+int finger_up(int degrees, Servo &servo_name){
    degrees += 1;
   if (degrees > 90) {  // Assuming max bend is 90 degrees
     degrees = 90;
   }
-  servo_name->write(degrees); // update the servo
+  servo_name.write(degrees); // update the servo
   delay(20);
   return degrees;
 }
 
-int finger_down(int degrees, Servo* servo_name){
+int finger_down(int degrees, Servo &servo_name){
    degrees -= 1;
   if (degrees < 0) {  // Assuming 0 is fully extended
     degrees = 0;
   }
-  servo_name->write(degrees);
+  servo_name.write(degrees);
   delay(20);
   return degrees;
 }
@@ -159,6 +149,7 @@ int finger_down(int degrees, Servo* servo_name){
 void loop() {
   float voltage = analogRead(analogPin) * (5.0 / 1023.0);
 
+  
   // arm
   if (voltage < .28){
   degrees_arm =  arm_extend_up(degrees_arm);
@@ -177,60 +168,60 @@ void loop() {
 
   //wrist left and right movement
   else if (voltage < 1.4 && voltage > 1.12 ){
-   degrees_wrist_x = wrist_positive(degrees_wrist_x,&servo_wrist_x);
+   degrees_wrist_x = wrist_positive(degrees_wrist_x,servo_wrist_x);
   }
   else if (voltage < 1.68 && voltage > 1.4 ){
-   degrees_wrist_x = wrist_negative(degrees_wrist_x,&servo_wrist_x);
+   degrees_wrist_x = wrist_negative(degrees_wrist_x,servo_wrist_x);
   }
 
   //wrist up and down movement
   else if (voltage < 1.96 && voltage > 1.68){
-   degrees_wrist_y = wrist_positive(degrees_wrist_y,&servo_wrist_y);
+   degrees_wrist_y = wrist_positive(degrees_wrist_y,servo_wrist_y);
   }
   else if (voltage < 2.24 && voltage > 1.96){
-   degrees_wrist_y = wrist_negative(degrees_wrist_y,&servo_wrist_y);
+   degrees_wrist_y = wrist_negative(degrees_wrist_y,servo_wrist_y);
   }
 
   // index finger movement 
   else if (voltage < 2.52 && voltage > 2.24){
-    degrees_index = finger_up(degrees_index, &servo_index);
+    degrees_index = finger_up(degrees_index, servo_index);
   }
   else if (voltage < 2.8 && voltage > 2.52){
-   degrees_index = finger_down(degrees_index, &servo_index);
+   degrees_index = finger_down(degrees_index, servo_index);
   }
 
   // middle finger movement 
   else if (voltage < 3.08 && voltage > 2.8){
-   degrees_middle = finger_up(degrees_middle, &servo_middle);
+   degrees_middle = finger_up(degrees_middle, servo_middle);
   }
   else if (voltage < 3.36 && voltage > 3.08){
-   degrees_middle = finger_down(degrees_middle, &servo_middle);
+   degrees_middle = finger_down(degrees_middle, servo_middle);
   }
 
   // ring finger movement 
   else if (voltage < 3.64 && voltage > 3.36){
-  degrees_ring = finger_up(degrees_ring, &servo_ring);
+  degrees_ring = finger_up(degrees_ring, servo_ring);
 
   }
   else if (voltage < 3.92 && voltage > 3.64){
-  degrees_ring = finger_down(degrees_ring, &servo_ring);
+  degrees_ring = finger_down(degrees_ring, servo_ring);
   }
 
   // pinky finger movement 
   else if (voltage < 4.2 && voltage > 3.92){
-   degrees_pinky = finger_up(degrees_pinky, &servo_pinky);
+   degrees_pinky = finger_up(degrees_pinky, servo_pinky);
   }
   else if (voltage < 4.48 && voltage > 4.2){
-   degrees_pinky = finger_down(degrees_pinky, &servo_pinky);
+   degrees_pinky = finger_down(degrees_pinky, servo_pinky);
   }
 
   // thumb movement 
   else if (voltage < 4.76 && voltage > 4.48){
-    degrees_thumb = finger_up(degrees_thumb, &servo_thumb);
+    degrees_thumb = finger_up(degrees_thumb, servo_thumb);
   }
 
   else if (voltage < 5 && voltage > 4.76){
-   degrees_thumb = finger_down(degrees_thumb, &servo_thumb);
+   degrees_thumb = finger_down(degrees_thumb, servo_thumb);
   }
 
 }
