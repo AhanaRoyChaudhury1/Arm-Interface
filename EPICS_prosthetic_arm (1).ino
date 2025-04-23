@@ -148,7 +148,7 @@ int finger_down(int degrees, Servo &servo_name){
 
 void loop() {
   float voltage = analogRead(analogPin) * (5.0 / 1023.0);
-
+  degrees_wrist_twist = wrist_twist_right(degrees_wrist_twist);
   
   // arm
   if (voltage < .28){
