@@ -1,6 +1,6 @@
 #include <Servo.h>
 // pin to read voltage input 
-const int analogPin = A0;
+const int analogPin = 34;
 
 Servo servo_arm;
 Servo servo_wrist_x;
@@ -29,17 +29,17 @@ void setup() {
   Serial.begin(115200); // Start serial communication
   pinMode(analogPin, INPUT); // Configure the pin as an input
 
-  servo_arm.attach(13);
+  servo_arm.attach(26);
 
-  servo_wrist_x.attach(12);
-  servo_wrist_y.attach(11);
-  servo_wrist_twist.attach(10);
+  servo_wrist_x.attach(13);
+  servo_wrist_y.attach(14);
+  servo_wrist_twist.attach(16);
 
-  servo_index.attach(3);
-  servo_middle.attach(8);
-  servo_ring.attach(18);
-  servo_pinky.attach(17);
-  servo_thumb.attach(16);
+  servo_index.attach(4);
+  servo_middle.attach(5);
+  servo_ring.attach(25);
+  servo_pinky.attach(27);
+  servo_thumb.attach(32);
   
 }
 
@@ -147,8 +147,23 @@ int finger_down(int degrees, Servo &servo_name){
 
 
 void loop() {
-  float voltage = analogRead(analogPin) * (5.0 / 1023.0);
-  degrees_wrist_twist = wrist_twist_right(degrees_wrist_twist);
+  int analogValue = analogRead(analogPin); // Read the analog value
+  float voltage = (float)analogValue / 4095.0 * 3.3; // Assuming 3.3V reference voltage
+  Serial.print("Analog value: ");
+  Serial.print(analogValue);
+  Serial.print(" Voltage: ");
+  Serial.println(voltage);
+  delay(1000);
+  
+  servo_arm.write(degrees_arm);
+  servo_wrist_x.write(degrees_wrist_x);
+  servo_wrist_y.write(degrees_wrist_y);
+  servo_wrist_twist.write(degrees_wrist_twist);
+  servo_index.write(degrees_index);
+  servo_middle.write(degrees_middle);
+  servo_ring.write(degrees_ring);
+  servo_thumb.write(degrees_thumb);
+  servo_pinky.write(degrees_pinky);
   
   // arm
   if (voltage < .28){
