@@ -1,4 +1,7 @@
-#include <Servo.h>
+#include <ESP32Servo.h>
+
+ESP32PWM pwm;
+
 // pin to read voltage input 
 const int analogPin = 34;
 
